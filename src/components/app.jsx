@@ -13,10 +13,11 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedGifId: "BBkKEBJkmFbTG"
+      selectedGifId: ""
     };
 
     this.search("rick and morty");
+    this.selectGif = this.selectGif.bind(this);
   }
 
   search = (query) => {
@@ -30,18 +31,23 @@ class App extends Component {
     });
   }
 
+  selectGif(id) {
+    this.setState({
+      selectedGifId: id
+    });
+  }
+
   render() {
     return (
       <div>
         <div className="left-scene">
-          <SearchBar search={this.search} />
+          <SearchBar searchFunction={this.search} />
           <div className="selected-gif">
             <Gif id={this.state.selectedGifId} />
-            {/* <Gif selectGif={this.select} /> */}
           </div>
         </div>
         <div className="right-scene">
-          <GifList gifs={this.state.gifs} />
+          <GifList gifs={this.state.gifs} selectGif={this.selectGif} />
         </div>
       </div>
     );
